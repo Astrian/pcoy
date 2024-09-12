@@ -50,7 +50,7 @@ function App() {
       <div className="flex justify-between">
         <div></div>
         <div className="text-right font-dinnext-regular text-white/30 p-2">
-          <div>Make by <a href="https://astrian.moe" target="_blank" className="underline">Astrian</a></div>
+          <div>Made by <a href="https://astrian.moe" target="_blank" className="underline">Astrian</a></div>
           <div><a href="https://github.com/Astrian/pcoy" target="_blank" className="underline">Sourcecode</a></div>
         </div>
       </div>
