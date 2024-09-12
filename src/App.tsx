@@ -51,7 +51,7 @@ function App() {
         <div></div>
         <div className="text-right font-dinnext-regular text-white/30 p-2">
           <div>Make by <a href="https://astrian.moe" target="_blank" className="underline">Astrian</a></div>
-          <div><a href="" target="_blank" className="underline">Sourcecode</a></div>
+          <div><a href="https://github.com/Astrian/pcoy" target="_blank" className="underline">Sourcecode</a></div>
         </div>
       </div>
       <div className="w-screen flex justify-between items-end text-white">
