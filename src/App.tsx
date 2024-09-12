@@ -13,7 +13,7 @@ function App() {
   const [date, setDate] = useState(new Date())
 
   useEffect(() => {
-    const link = document.createElement('link');
+    const link = document.createElement('link')
     link.rel = 'stylesheet'
     link.href = `https://cdn.fonts.net/kit/${import.meta.env.VITE_MONOTYPE_CSS_TOKEN}.css`
     link.crossOrigin = 'anonymous'
@@ -31,47 +31,46 @@ function App() {
     const endOfYear = new Date(currentYear, 11, 31, 23, 59, 59).getTime()
     const duration = 2
     const ease = "expo.out"
+    const isMobile = window.innerWidth < 1024
     const job = new CronJob('* * * * * *', () => {
       const current = new Date().getTime()
       const percentage = (current - startOfYear) / (endOfYear - startOfYear)
-      const screenWidth = window.innerWidth
-      const blackWidth = screenWidth * percentage
-      const whiteWidth = screenWidth - blackWidth
+      const screenSize = isMobile ? window.innerHeight : window.innerWidth
+      const blackSize = screenSize * percentage
+      const whiteSize = screenSize * (1 - percentage)
       setPercentage(percentage)
       setDate(new Date(current))
-      gsap.to(highlighterBlack.current, { width: blackWidth, duration, ease })
-      gsap.to(highlighterWhite.current, { width: whiteWidth, duration, ease })
+      gsap.to(highlighterBlack.current, isMobile ? {height: blackSize, duration, ease} : { width: blackSize, duration, ease })
+      gsap.to(highlighterWhite.current, isMobile ? {height: whiteSize, duration, ease} : { width: whiteSize, duration, ease })
     })
     job.start()
   })
 
   return (<>
     <div className="absolute w-screen h-screen flex flex-col justify-between mix-blend-difference select-none">
-      <div className="flex justify-between">
-        <div></div>
-        <div className="text-right font-dinnext-regular text-white/30 p-2">
-          <div>Made by <a href="https://astrian.moe" target="_blank" className="underline">Astrian</a></div>
-          <div><a href="https://github.com/Astrian/pcoy" target="_blank" className="underline">Sourcecode</a></div>
-        </div>
-      </div>
-      <div className="w-screen flex justify-between items-end text-white">
-        <div>
-          <div className="text-5xl font-dinnext-medium">
+
+      <div className="w-screen h-screen flex flex-col lg:flex-row justify-between items-end text-white">
+        <div className="flex flex-col items-end lg:items-start">
+          <div className="lg:text-5xl text-4xl font-dinnext-medium text-right lg:text-left">
             <div>{moment(date).year()}</div>
             <div>{moment(date).format('MMMM')}</div>
             <div>{moment(date).date()}</div>
           </div>
-          <div className="text-9xl font-dinnext-regular">{moment(date).format('HH:mm:ss')}</div>
+          <div className="lg:text-9xl text-7xl font-dinnext-regular">{moment(date).format('HH:mm:ss')}</div>
         </div>
-        <div className="flex flex-col items-end">
-          <div className="text-5xl font-dinnext-medium">{new Date().getFullYear()} has passed</div>
-          <div className="text-9xl font-dinnext-regular">{(persentage * 100).toFixed(4)}%</div>
+        <div className="flex flex-col-reverse lg:flex-col gap-8 items-end">
+          <div className="font-dinnext-regular mb-4 text-white/30">Made by <a href="https://astrian.moe" target="_blank" className="underline">Astrian</a> &middot; <a href="https://github.com/Astrian/pcoy" target="_blank" className="underline">sourcecode</a></div>
+          <div className="flex flex-col items-end">
+            
+            <div className="lg:text-5xl text-4xl font-dinnext-medium">{new Date().getFullYear()} has passed</div>
+            <div className="lg:text-9xl text-7xl font-dinnext-regular">{(persentage * 100).toFixed(4)}%</div>
+          </div>
         </div>
       </div>
     </div>
-    <div className="flex h-screen w-screen justify-center items-center ">
-      <div className="bg-black w-0 h-full" ref={highlighterBlack} />
-      <div className="bg-white w-screen h-full" ref={highlighterWhite} />
+    <div className="flex flex-col lg:flex-row h-screen w-screen justify-center items-center ">
+      <div className="bg-black lg:w-0 lg:h-full w-full h-0" ref={highlighterBlack} />
+      <div className="bg-white lg:w-screen lg:h-full h-screen w-full" ref={highlighterWhite} />
     </div>
   </>)
 }
