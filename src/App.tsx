@@ -11,8 +11,12 @@ function App() {
   const highlighterBlack = useRef(null)
   const [persentage, setPercentage] = useState(0)
   const [date, setDate] = useState(new Date())
+  const [timeFormat, setTimeFormat] = useState(24)
 
   useEffect(() => {
+    const timeFormat = parseInt(localStorage.getItem('timeFormat') ?? '24')
+    setTimeFormat(timeFormat)
+
     const link = document.createElement('link')
     link.rel = 'stylesheet'
     link.href = `https://cdn.fonts.net/kit/${import.meta.env.VITE_MONOTYPE_CSS_TOKEN}.css`
@@ -46,6 +50,13 @@ function App() {
     job.start()
   })
 
+  function changeTimeFormat() {
+    const newTimeFormat = timeFormat === 24 ? 12 : 24
+    setTimeFormat(newTimeFormat)
+    console.log(`Time format changed to ${newTimeFormat}`)
+    localStorage.setItem('timeFormat', `${newTimeFormat}`)
+  }
+
   return (<>
     <div className="absolute w-screen h-screen flex flex-col justify-between mix-blend-difference select-none">
 
@@ -56,7 +67,10 @@ function App() {
             <div>{moment(date).format('MMMM')}</div>
             <div>{moment(date).date()}</div>
           </div>
-          <div className="lg:text-9xl text-7xl font-dinnext-regular">{moment(date).format('HH:mm:ss')}</div>
+          <div className="font-dinnext-regular cursor-pointer flex" onClick={changeTimeFormat}>
+            <div className="lg:text-9xl text-7xl">{moment(date).format(timeFormat === 24 ? 'HH:mm:ss' : 'h:mm:ss')}</div>
+            {timeFormat === 12 && <div className="lg:text-6xl text-3xl">{moment(date).format('a')}</div>}
+          </div>
         </div>
         <div className="flex flex-col-reverse lg:flex-col gap-8 items-end">
           <div className="font-dinnext-regular mb-4 text-white/30">Made by <a href="https://astrian.moe" target="_blank" className="underline">Astrian</a> &middot; <a href="https://github.com/Astrian/pcoy" target="_blank" className="underline">sourcecode</a></div>
