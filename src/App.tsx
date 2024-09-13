@@ -67,9 +67,9 @@ function App() {
             <div>{moment(date).format('MMMM')}</div>
             <div>{moment(date).date()}</div>
           </div>
-          <div className="font-dinnext-regular cursor-pointer flex" onClick={changeTimeFormat}>
+          <div className="font-dinnext-regular cursor-pointer flex flex-row-reverse lg:flex-row gap-2" onClick={changeTimeFormat}>
             <div className="lg:text-9xl text-7xl">{moment(date).format(timeFormat === 24 ? 'HH:mm:ss' : 'h:mm:ss')}</div>
-            {timeFormat === 12 && <div className="lg:text-6xl text-3xl">{moment(date).format('a')}</div>}
+            <div className="lg:text-6xl text-3xl">{timeFormat === 12 && moment(date).format('a')}</div>
           </div>
         </div>
         <div className="flex flex-col-reverse lg:flex-col gap-8 items-end">
