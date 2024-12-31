@@ -74,7 +74,9 @@ function App() {
           </div>
         </div>
         <div className="flex flex-col-reverse lg:flex-col gap-8 items-end">
-          <div className="font-dinnext-regular mb-4 text-white/30">Made by <a href="https://astrian.moe" target="_blank" className="underline">Astrian</a> &middot; <a href="https://github.com/Astrian/pcoy" target="_blank" className="underline">sourcecode</a></div>
+          <div className="font-dinnext-regular mb-4 text-white/30">Made by <a href="https://astrian.moe" target="_blank" className="underline">Astrian</a> &middot; <a href="https://github.com/Astrian/pcoy" target="_blank" className="underline">sourcecode</a> &middot; <span className="underline cursor-pointer" onClick={() => {
+            document.documentElement.requestFullscreen()
+          }}>Full screen</span></div>
           <div className="flex flex-col items-end">
             
             <div className="lg:text-5xl text-4xl font-dinnext-medium">{new Date().getFullYear()} has passed</div>
