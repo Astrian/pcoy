@@ -30,13 +30,14 @@ function App() {
   }, [])
 
   useGSAP(() => {
-    const currentYear = new Date().getFullYear()
-    const startOfYear = new Date(currentYear, 0, 1, 0, 0, 0).getTime()
-    const endOfYear = new Date(currentYear, 11, 31, 23, 59, 59).getTime()
+    
     const duration = 2
     const ease = "expo.out"
     const isMobile = window.innerWidth < 1024
     const job = new CronJob('* * * * * *', () => {
+      const currentYear = new Date().getFullYear()
+      const startOfYear = new Date(currentYear, 0, 1, 0, 0, 0).getTime()
+      const endOfYear = new Date(currentYear, 11, 31, 23, 59, 59).getTime()
       const current = new Date().getTime()
       const percentage = (current - startOfYear) / (endOfYear - startOfYear)
       const screenSize = isMobile ? window.innerHeight : window.innerWidth
