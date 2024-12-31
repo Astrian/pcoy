@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react"
 import { CronJob } from 'cron'
 import moment from "moment"
+import confetti from "canvas-confetti"
 
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
@@ -47,6 +48,15 @@ function App() {
       setDate(new Date(current))
       gsap.to(highlighterBlack.current, isMobile ? {height: blackSize, duration, ease} : { width: blackSize, duration, ease })
       gsap.to(highlighterWhite.current, isMobile ? {height: whiteSize, duration, ease} : { width: whiteSize, duration, ease })
+
+      // Trigger confetti at midnight on January 1st
+      if (moment(current).isSame(moment(startOfYear), 'second')) {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        })
+      }
     })
     job.start()
   })
